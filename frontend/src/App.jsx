@@ -3,6 +3,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { useAuth } from "./store/AuthContext"
 import PrivateRoute from "./components/PrivateRoute"
+import Layout from "./components/Layout"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Dashboard from "./pages/Dashboard"
@@ -24,11 +25,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
-        <Route path="/projects" element={<PrivateRoute element={<Projects />} />} />
-        <Route path="/projects/:id" element={<PrivateRoute element={<ProjectView />} />} />
-        <Route path="/tasks" element={<PrivateRoute element={<Tasks />} />} />
-        <Route path="/automations" element={<PrivateRoute element={<Automations />} />} />
+        <Route path="/" element={<PrivateRoute element={<Layout><Dashboard /></Layout>} />} />
+        <Route path="/projects" element={<PrivateRoute element={<Layout><Projects /></Layout>} />} />
+        <Route path="/projects/:id" element={<PrivateRoute element={<Layout><ProjectView /></Layout>} />} />
+        <Route path="/tasks" element={<PrivateRoute element={<Layout><Tasks /></Layout>} />} />
+        <Route path="/automations" element={<PrivateRoute element={<Layout><Automations /></Layout>} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

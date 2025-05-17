@@ -134,10 +134,34 @@ const deleteTask = asyncHandler(async (req, res) => {
   res.json({ message: "Task removed" })
 })
 
+// @desc    Get all tasks for a user (across all projects)
+// @route   GET /api/tasks
+// @access  Private
+const getAllTasks = asyncHandler(async (req, res) => {
+  // Find all projects where the user is owner or member
+  const userProjects = await Project.find({
+    $or: [
+      { owner: req.user._id },
+      { members: req.user._id }
+    ]
+  }).select('_id');
+
+  // Extract project IDs
+  const projectIds = userProjects.map(project => project._id);
+
+  // Find all tasks in those projects
+  const tasks = await Task.find({
+    project: { $in: projectIds }
+  }).sort({ createdAt: -1 }).populate('assignedTo', 'name email');
+
+  res.json(tasks);
+});
+
 module.exports = {
   createTask,
   getTasksByProject,
   getTask,
   updateTask,
   deleteTask,
+  getAllTasks
 }

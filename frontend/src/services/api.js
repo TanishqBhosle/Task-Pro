@@ -29,7 +29,10 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Token expired or invalid
       localStorage.removeItem("token")
-      window.location.href = "/login"
+      // Use a more reliable way to navigate in React
+      if (!window.location.pathname.includes('/login')) {
+        window.location.href = "/login"
+      }
     }
     return Promise.reject(error)
   },

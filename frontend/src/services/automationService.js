@@ -1,9 +1,14 @@
 import api from "./api"
 
 export const getAutomations = async (projectId = null) => {
-  const url = projectId ? `/api/automations?project=${projectId}` : "/api/automations"
-  const response = await api.get(url)
-  return response.data
+  try {
+    const url = projectId ? `/api/automations?project=${projectId}` : "/api/automations"
+    const response = await api.get(url)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching automations:', error)
+    throw error
+  }
 }
 
 export const getAutomation = async (id) => {

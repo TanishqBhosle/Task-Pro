@@ -1,8 +1,13 @@
 import api from "./api"
 
 export const getProjects = async () => {
-  const response = await api.get("/api/projects")
-  return response.data
+  try {
+    const response = await api.get("/api/projects")
+    return response.data
+  } catch (error) {
+    console.error('Error fetching projects:', error)
+    throw error
+  }
 }
 
 export const getProject = async (id) => {

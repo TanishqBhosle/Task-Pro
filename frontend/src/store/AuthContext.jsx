@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
           setUser(userData)
         } catch (error) {
           console.error("Failed to get user profile:", error)
+          // Clear error state when logging out due to invalid token
+          setError(null)
           logout()
         }
       }
