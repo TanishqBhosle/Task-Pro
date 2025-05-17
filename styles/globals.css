@@ -1,0 +1,13 @@
+/* Import main CSS file */
+@import './main.css';
+
+/* Text balance utility */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Additional body styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
